@@ -1,40 +1,38 @@
-thisFrame = 0
-curId = 1
+animations = 0
 anims = {}
 anims.name = {}
-anims.framee = {}
+anims.frame = {}
+anims.frames = {}
 anims.URL = {}
 anims.FPS = {}
-anims.max = {}
+anims.img = {}
 
 function animate(dt)
-	thisFrame = thisFrame + 1*dt
-	currId = 1
-	while currId < curId do
-		anims.framee[currId] = anims.framee[currId] + 1*(dt/anims.FPS[currId])
-		if round(anims.framee[currId], 0) > anims.max[currId] then
-			anims.framee[currId] = 0.5
-		end
-		currId = currId + 1
-	end
+  for i = 1, animations do
+    anims.frame[i] = anims.frame[i] + 1*(dt*anims.FPS[i])
+    if anims.frame[i] > anim.frames[i] then
+      anims.frame[i] = 1
+    end
+  end
 end
 
 function animDraw(name, x, y)
-	currId = 1
-	while currId < curId do
-		if anims.name[currId] == name then
-			local newImg = love.graphics.newImage(anims.URL[currId].."/"..round(anims.framee[currId], 0)..".png")
-			return love.graphics.draw(newImg, x, y)
-		end
-		currId = currId + 1
-	end
+  for i = 1, animations do
+    if anims.name[i] == name then
+      love.graphics.draw(anims.img[i][anims.frame[i]], x, y)
+    end
+  end
 end
 
-function addAnim(imgName, URL, FPS, maxImg)
-	anims.name[curId] = imgName
-	anims.framee[curId] = 1
-	anims.URL[curId] = URL
-	anims.FPS[curId] = FPS
-	anims.max[curId] = maxImg
-	curId = curId + 1
+function addAnim(name, url, fps, frames)
+  animations = animations + 1
+  anims.name[animations] = name
+  anims.frame[animations] = 1
+  anims.URL[animations] = url
+  anims.FPS[animations] = fps
+  anims.frames[animations] = frames
+  anims.img[animations] = {}
+  for i = 1, frames do
+    anims.img[animations][i] = love.graphics.newImage(url.."/"..i..".png")
+  end
 end
