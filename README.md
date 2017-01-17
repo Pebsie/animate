@@ -3,6 +3,7 @@
 This can be used to make animations without the need for sprite sheets. It's great for lazy people such as myself.
 ##How to use
 ###Step 1
+Put `animate.lua` in the same directory as `main.lua` and put `include 'animate'` at the top of `main.lua`. 
 Make each frame of animation in a seperate image file and then save it into your animation folder with the filename *frame*.png. For example, my first frame will be 1.png, my second 2.png, my fourtieth 40.png.
 ###Step 2
 Add all animations that you want to use in love.load like this:
